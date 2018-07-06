@@ -1,0 +1,37 @@
+(* Set global assumptions *)
+Rd > 0 && Ca > 0 && Ci > 0 && GammaStar > 0 && Kco > 0 && Vcmax > 0 && J > 0 && J < 4*Vcmax && gtot > 0 && (-(J*Kco) + 8*GammaStar*Vcmax)/(J - 4*Vcmax) > 0
+
+(* Find conditions such that Cix > GammaStar *)
+Rd > 0 && Ca > 0 && Ci > 0 && gtot > 0 && Vcmax > 0 && Inequality[0, Less, J, Less, 4*Vcmax] && Kco > 0 && Inequality[0, Less, GammaStar, Less, -((J*Kco)/(J - 12*Vcmax))]
+
+(* Find conditions such that Aj > Ac *)
+Rd > 0 && Ca > 0 && gtot > 0 && Vcmax > 0 && Inequality[0, Less, J, Less, 4*Vcmax] && Kco > 0 && Inequality[0, Less, GammaStar, Less, -((J*Kco)/(J - 12*Vcmax))] && Inequality[GammaStar, Less, Ci, Less, (-(J*Kco) + 8*GammaStar*Vcmax)/(J - 4*Vcmax)]
+
+(* Find conditions such that Aj < Ac *)
+Rd > 0 && Ca > 0 && gtot > 0 && Vcmax > 0 && Inequality[0, Less, J, Less, 4*Vcmax] && Kco > 0 && Inequality[0, Less, GammaStar, Less, -((J*Kco)/(J - 12*Vcmax))] && (Inequality[0, Less, Ci, Less, GammaStar] || Ci > (-(J*Kco) + 8*GammaStar*Vcmax)/(J - 4*Vcmax))
+
+(* CASE: carboxylation limited regime}
+(* Solve for Ci *)
+(* Root 1 *)
+(Ca*gtot - gtot*Kco + Rd - Vcmax + Sqrt[(Ca*gtot - gtot*Kco + Rd - Vcmax)^2 + 4*gtot*(Ca*gtot*Kco + Kco*Rd + GammaStar*Vcmax)])/(2*gtot)
+(* Root 2 *)
+-(-(Ca*gtot) + gtot*Kco - Rd + Vcmax + Sqrt[(Ca*gtot - gtot*Kco + Rd - Vcmax)^2 + 4*gtot*(Ca*gtot*Kco + Kco*Rd + GammaStar*Vcmax)])/(2*gtot)
+
+(* Calculate An results *)
+(* Root 1 *)
+(Ca*gtot + gtot*Kco - Rd + Vcmax - Sqrt[(Ca*gtot - gtot*Kco + Rd - Vcmax)^2 + 4*gtot*(Ca*gtot*Kco + Kco*Rd + GammaStar*Vcmax)])/2
+(* Root 2 *)
+(Ca*gtot + gtot*Kco - Rd + Vcmax + Sqrt[(Ca*gtot - gtot*Kco + Rd - Vcmax)^2 + 4*gtot*(Ca*gtot*Kco + Kco*Rd + GammaStar*Vcmax)])/2
+
+(* CASE: electron transport limited regime *)
+(* Solve for Ci *)
+(* Root 1 *)
+-(-4*Ca*gtot + 8*GammaStar*gtot + J - 4*Rd - Sqrt[(4*Ca*gtot - 8*GammaStar*gtot - J + 4*Rd)^2 + 16*gtot*(8*Ca*GammaStar*gtot + GammaStar*J + 8*GammaStar*Rd)])/(8*gtot)
+(* Root 2 *)
+-(-4*Ca*gtot + 8*GammaStar*gtot + J - 4*Rd + Sqrt[(4*Ca*gtot - 8*GammaStar*gtot - J + 4*Rd)^2 + 16*gtot*(8*Ca*GammaStar*gtot + GammaStar*J + 8*GammaStar*Rd)])/(8*gtot)
+
+(* Calculate An results *)
+(* Root 1 *)
+(4*Ca*gtot + 8*GammaStar*gtot + J - 4*Rd - Sqrt[(-4*Ca*gtot + 8*GammaStar*gtot + J - 4*Rd)^2 + 16*GammaStar*gtot*(8*Ca*gtot + J + 8*Rd)])/8
+(* Root 2 *)
+(4*Ca*gtot + 8*GammaStar*gtot + J - 4*Rd + Sqrt[(-4*Ca*gtot + 8*GammaStar*gtot + J - 4*Rd)^2 + 16*GammaStar*gtot*(8*Ca*gtot + J + 8*Rd)])/8
